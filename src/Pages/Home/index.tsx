@@ -29,14 +29,14 @@ const Home: React.FC = () => {
         <LogoImage src={Logo} alt="Tinnova dark logotype" />
       </LogoContainer>
       <Content>
-        <Title> Welcome to the app </Title>
+        <Title> Bem vindo ao meu teste! </Title>
         <SubTitle>
-          This is a simple app, to answer all the questions of my Front end test. <br />
-          Good luck to me!
+          Essa é uma aplicação simples, criada apenas para responder todas as questões do meu teste.<br />
+          Boa sorte para mim!
         </SubTitle>
         <ButtonContainer>
           <Button onClick={() => handleNav()} backgroundColor={colors.pink} width="50%" >
-            <ButtonText>Start !</ButtonText>
+            <ButtonText>Let's Go!</ButtonText>
           </Button>
         </ButtonContainer>
       </Content>

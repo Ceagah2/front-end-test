@@ -1,7 +1,0 @@
-{
-  "name": "Backend",
-  "version": "1.0.0",
-  "description": "Backend for the fiveth question for the Tinnova front end test",
-  "main": "index.js",
-  "license": "MIT"
-}

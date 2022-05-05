@@ -40,6 +40,7 @@ export const SubTitle = styled.span`
   justify-content: center;
   align-items: center;
   font-size: ${sizes.subtitle};
+  text-align: center;
 `;
 export const ButtonContainer = styled.div`
   width: 100%;
