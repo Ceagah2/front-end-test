@@ -22,7 +22,7 @@ const Router: React.FC = () => {
         <Route path="/questionFour" element={<QuestionFour />} />
         <Route path="/questionFive" element={<QuestionFive />} />
         <Route path="/finish" element={<Finish />} />
-        <Route path="/edit" element={<Edit brand={''} type={''} year={0} description={''} soldOut={false} id={0} />} />
+        <Route path="/edit/id=:id" element={<Edit brand={''} type={''} year={0} description={''} soldOut={false} id={0} />} />
       </Routes>
     </BrowserRouter>
   );

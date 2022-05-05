@@ -21,6 +21,7 @@ const Two: React.FC = () => {
   const navigate = useNavigate();
   const [numberVector, setNumberVector] = useState<string[]>([]);
   const [sortedArray, setSortedArray] = useState<string[]>([]);
+
   return (
     <Container>
       <Question questionNumber={2} questionTitle='Algoritmo de ordenação Bubble Sort'>
@@ -30,11 +31,11 @@ const Two: React.FC = () => {
 
           </QuestionText>
           <InputGroup>
-            <InputLabel>Insira os números aqui: </InputLabel>
-            <TextInput type="text" value={numberVector} onChange={() => setNumberVector(numberVector)} />
+            <InputLabel>Insira os números aqui, separados por uma virgula </InputLabel>
+            <TextInput type="text" value={numberVector} name="numberVector" onChange={() => setNumberVector(numberVector)} />
           </InputGroup>
           <InputGroup>
-            <InputLabel>Votos válidos: </InputLabel>
+            <InputLabel>Array organizado </InputLabel>
             <TextInput disabled value={sortedArray} />
           </InputGroup>
         </Content>

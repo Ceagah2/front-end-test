@@ -13,6 +13,7 @@ import {
   TextInput,
   ButtonContainer,
   Footer,
+  QuestionAnswer,
 } from './styles';
 
 interface Votes {
@@ -24,32 +25,55 @@ interface Votes {
 
 const One: React.FC = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [values, setValues] = useState<Votes>({
+  const [blankPercentage, setBlankPercentage] = useState<number>(0);
+  const [nullPercentage, setNullPercentage] = useState<number>(0);
+  const [eligiblePercentage, setEligiblePercentage] = useState<number>(0);
+  const [answer, setAnswer] = useState<boolean>(false);
+
+  const [votes, setVotes] = useState<Votes>({
     totalVotes: 0,
     blankVotes: 0,
     nullVotes: 0,
     eligibleVotes: 0,
   });
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    setValues({
-      ...values,
-      [name]: value
-    });
+
+  const calculateBlankVotes = () => {
+    const { totalVotes, blankVotes } = votes;
+    const blankVotesPercentage = (blankVotes / totalVotes) * 100;
+    setBlankPercentage(blankVotesPercentage);
   }
 
-  const handleCalculate = () => {
-    const { totalVotes, blankVotes, nullVotes } = values;
+  const calculateNullVotes = () => {
+    const { totalVotes, nullVotes } = votes;
+    const nullVotesPercentage = (nullVotes / totalVotes) * 100;
+    setNullPercentage(nullVotesPercentage);
+  }
+
+  const calculateEligibleVotes = () => {
+    const { totalVotes, eligibleVotes } = votes;
+    const eligibleVotesPercentage = (eligibleVotes / totalVotes) * 100;
+    setEligiblePercentage(eligibleVotesPercentage);
+  }
+  const calculateTotalVotes = () => {
+    const { totalVotes, blankVotes, nullVotes } = votes;
     const eligibleVotes = totalVotes - blankVotes - nullVotes;
-    setValues({
-      ...values,
-      eligibleVotes,
-    });
-    alert('Calculado');
+    setVotes({ ...votes, eligibleVotes });
+    calculateEligibleVotes();
   }
 
+  const calculateVotes = (): void => {
+    calculateBlankVotes();
+    calculateNullVotes();
+    calculateEligibleVotes();
+    calculateTotalVotes();
+    setAnswer(true);
+  }
+
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setVotes({ ...votes, [event.target.name]: event.target.value });
+  }
 
   return (
     <Container>
@@ -63,27 +87,54 @@ const One: React.FC = () => {
             e a porcentagem de votos válidos, em relação ao total de eleitores.
           </QuestionText>
           <InputGroup>
-            <InputLabel>Total de eleitores: </InputLabel>
-            <TextInput type="number" value={values.totalVotes} onChange={() => handleInput} />
+            <InputLabel>Total de eleitores </InputLabel>
+            <TextInput
+              type='number'
+              name='totalVotes'
+              value={votes.totalVotes}
+              onChange={handleChange}
+              min='0'
+            />
           </InputGroup>
           <InputGroup>
-            <InputLabel>Votos em branco: </InputLabel>
-            <TextInput type="number" value={values.blankVotes} onChange={() => handleInput} />
+            <InputLabel>Votos em branco </InputLabel>
+            <TextInput
+              type='number'
+              name='blankVotes'
+              value={votes.blankVotes}
+              onChange={handleChange}
+              min='0'
+            />
           </InputGroup>
           <InputGroup>
-            <InputLabel>Votos nulos: </InputLabel>
-            <TextInput type="number" value={values.nullVotes} onChange={() => handleInput} />
+            <InputLabel>Votos nulos </InputLabel>
+            <TextInput
+              type='number'
+              name='nullVotes'
+              value={votes.nullVotes}
+              onChange={handleChange}
+              min='0'
+            />
           </InputGroup>
           <InputGroup>
-            <InputLabel>Votos válidos: </InputLabel>
-            <TextInput disabled value={values.eligibleVotes} />
+            <InputLabel>Votos válidos </InputLabel>
+            <TextInput readOnly value={votes.eligibleVotes} min='0' />
           </InputGroup>
         </Content>
         <ButtonContainer>
-          <Button onClick={() => handleCalculate()}>
+          <Button onClick={() => calculateVotes()}>
             Calcular
           </Button>
         </ButtonContainer>
+        {answer && (
+          <QuestionAnswer>
+            A porcentagem de votos nulos é de <strong>{nullPercentage}%</strong>
+            <br />
+            A porcentagem de votos em branco é de <strong>{blankPercentage}%</strong>
+            <br />
+            A porcentagem de votos válidos é de <strong>{eligiblePercentage}%</strong>
+          </QuestionAnswer>
+        )}
       </Question>
       <Footer>
         <Button onClick={() => navigate('/questionTwo')}>

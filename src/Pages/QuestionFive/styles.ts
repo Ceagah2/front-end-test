@@ -9,15 +9,16 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background: ${colors.gray};
-  
 `;
 
 export const Content = styled.main`
   width: 80% ;
+  height:80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: ${colors.background};
 `;
 export const QuestionText = styled.span`
   margin-bottom: 20px;

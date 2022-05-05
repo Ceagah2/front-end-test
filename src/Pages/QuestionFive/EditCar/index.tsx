@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, EditForm, Label, Input } from './styles';
+import Button from '../../../Components/Button';
+import { colors } from '../../../Themes/theme';
+import {
+  Container,
+  Content,
+  Title,
+  EditForm,
+  InputGroup,
+  InputTextArea,
+  Label,
+  Input,
+  TextArea,
+  ButtonContainer,
+} from './styles';
 
 interface IState {
   brand: string;
@@ -35,19 +48,18 @@ const EditCar = (state: IState): React.ReactElement => {
     setCar({ ...car, [event.target.name]: event.target.checked });
   }
 
-  // salva as alterações do carro no mock
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    const newCarsList = car.map((car: { id: number; }) => {
-      if (car.id === id) {
-        return car = car;
-      }
-      return car;
+  const handleSubmit = () => {
+    setTimeout(() => {
+      navigate('/');
     }
-    );
-    setCar(newCarsList);
-    navigate('/');
+      , 2000);
+    alert('Carro alterado com sucesso!');
+    const confirm = window.confirm('Deseja retornar a lista de carros?');
+    if (confirm) {
+      navigate('/questionFive');
+    }
   }
+
 
   const handleCancel = (): void => {
     navigate('/questionFive');
@@ -56,31 +68,43 @@ const EditCar = (state: IState): React.ReactElement => {
 
   return (
     <Container>
-      <h1>Editar Carro</h1>
-      <EditForm>
-        <Label>
-          Marca:
-          <Input type="text" name="brand" value={brand} onChange={handleChange} />
-        </Label>
-        <Label>
-          Veiculo:
-          <Input type="text" name="type" value={type} onChange={handleChange} />
-        </Label>
-        <Label>
-          Ano:
-          <Input type="number" name="year" value={year} onChange={handleChange} />
-        </Label>
-        <Label>
-          Descrição:
-          <textarea name="description" value={description} onChange={handleTextAreaChange} />
-        </Label>
-        <Label>
-          Vendido:
-          <input type="checkbox" name="soldOut" onChange={handleCheckboxChange} />
-        </Label>
-        <button type="button" onClick={handleSubmit}>Salvar</button>
-        <button type="button" onClick={handleCancel}>Cancelar</button>
-      </EditForm>
+      <Content>
+        <Title>Editar Carro</Title>
+        <EditForm>
+          <InputGroup>
+            <Label>
+              Marca
+            </Label>
+            <Input type="text" name="brand" value={brand} onChange={handleChange} />
+          </InputGroup>
+          <InputGroup>
+            <Label>
+              Veiculo
+            </Label>
+            <Input type="text" name="type" value={type} onChange={handleChange} />
+          </InputGroup>
+          <InputGroup>
+            <Label>
+              Ano
+            </Label>
+            <Input type="number" name="year" value={year} onChange={handleChange} />
+          </InputGroup>
+          <InputTextArea>
+            <Label>
+              Descrição do carro.
+            </Label>
+            <TextArea name="description" value={description} onChange={handleTextAreaChange} rows={20} cols={100} />
+          </InputTextArea>
+          <InputGroup>
+            <Label>Vendido</Label>
+            <input type="checkbox" name="soldOut" onChange={handleCheckboxChange} />
+          </InputGroup>
+          <ButtonContainer>
+            <Button width='30%' onClick={handleSubmit}>Salvar</Button>
+            <Button width='30%' backgroundColor={colors.pink} onClick={handleCancel}>Cancelar</Button>
+          </ButtonContainer>
+        </EditForm>
+      </Content>
     </Container>
   );
 }

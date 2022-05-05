@@ -20,7 +20,7 @@ const Cars: React.FC = () => {
   const editCar = (id: number) => {
     const car = carsList.find((car) => car.id === id);
     if (car) {
-      navigate(`/edit/${id}`, { state: car });
+      navigate(`/edit/id=${id}`, { state: car });
     }
   }
 

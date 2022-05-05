@@ -32,13 +32,15 @@ export const InputGroup = styled.div`
 `;
 export const InputLabel = styled.label``
 export const TextInput = styled.input``;
-export const QuestionAnswer = styled.span``;
+export const QuestionAnswer = styled.span`
+  margin-top: 20px;
+`;
 export const ButtonContainer = styled.div`
   width: 20vw;
   height: 5vh;
 `;
 export const Footer = styled.footer`
-  width: 100%;
+  width: 82%;
   height: 15vh;
   padding: 20px 20px 0 20px;
   display: flex;

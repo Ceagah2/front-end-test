@@ -9,7 +9,7 @@ import {
 } from './styles';
 
 interface IProps {
-  questionNumber: number;
+  questionNumber?: number;
   questionTitle: string;
   children: React.ReactNode;
 }
